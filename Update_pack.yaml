@@ -1,0 +1,13 @@
+---
+- name: Update and upgrade managed nodes
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update the apt package list
+      apt:
+        update_cache: yes
+
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
