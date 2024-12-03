@@ -1,0 +1,40 @@
+---
+- name: Install Nginx and deploy sample HTML page
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: Install Nginx
+    apt:
+      name: nginx
+      state: latest
+
+  - name: Start Nginx service
+    service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: sample HTML page
+    copy:
+      content: |
+        <html>
+          <body>
+            <h1>Welcome to our sample webpage!</h1>
+          </body>
+        </html>
+      dest: /var/www/html/index.html
+      mode: '0644'
+
+  - name: Configure Nginx to serve the sample HTML page
+    template:
+      src: templates/nginx.conf.j2
+      dest: /etc/nginx/sites-available/default
+      mode: '0644'
+    notify: restart nginx
+
+  handlers:
+  - name: restart nginx
+    service:
+      name: nginx
+      state: restarted
