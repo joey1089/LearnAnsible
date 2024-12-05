@@ -1,0 +1,19 @@
+---
+- name: Install essential tools
+  apt:
+    pkg:
+      - htop  # Interactive process viewer      
+      - vim  # Advanced text editor
+      - wget  # Download files from the web
+      - unzip  # Unzip compressed files          
+      - tree  # Display directories in a tree-like format      
+      - curl  # Transfer data using various protocols
+      - git  # Version control system
+      - python3-pip  # Python package installer      
+      - ncdu  # Disk usage analyzer
+      - fail2ban  # Intrusion prevention software
+      - rkhunter  # Rootkit scanner
+      - clamav  # Antivirus software
+      - ufw  # Uncomplicated Firewall
+    state: latest
+    update_cache: yes
