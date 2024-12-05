@@ -1,19 +1,22 @@
 ---
-- name: Install essential tools
-  apt:
-    pkg:
-      - htop  # Interactive process viewer      
-      - vim  # Advanced text editor
-      - wget  # Download files from the web
-      - unzip  # Unzip compressed files          
-      - tree  # Display directories in a tree-like format      
-      - curl  # Transfer data using various protocols
-      - git  # Version control system
-      - python3-pip  # Python package installer      
-      - ncdu  # Disk usage analyzer
-      - fail2ban  # Intrusion prevention software
-      - rkhunter  # Rootkit scanner
-      - clamav  # Antivirus software
-      - ufw  # Uncomplicated Firewall
-    state: latest
-    update_cache: yes
+- hosts: all
+  become: yes
+  tasks:
+  - name: Install essential tools
+    apt:
+      name:
+        - htop  # Interactive process viewer
+        - vim  # Advanced text editor
+        - wget  # Download files from the web
+        - unzip  # Unzip compressed files
+        - tree  # Display directories in a tree-like format
+        - curl  # Transfer data using various protocols
+        - git  # Version control system
+        - python3-pip  # Python package installer
+        - ncdu  # Disk usage analyzer
+        - fail2ban  # Intrusion prevention software
+        - rkhunter  # Rootkit scanner
+        - clamav  # Antivirus software
+        - ufw  # Uncomplicated Firewall
+      state: latest
+      cache_valid_time: 3600  # Update the cache if it's older than 1 hour (3600 seconds)
