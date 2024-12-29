@@ -15,23 +15,22 @@
       state: started
       enabled: yes
 
-  - name: sample HTML page
+  - name: Deploy a custom index.html
     copy:
-      content: |
-        <html>
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+          <head><title>Welcome to Nginx</title></head>
           <body>
-            <h1>Welcome to our sample webpage!</h1>
+          <h1>Nginx is successfully installed!</h1>
+          <p>Server: {{ inventory_hostname }}</p>
           </body>
-        </html>
-      dest: /var/www/html/index.html
-      mode: '0644'
+          </html>
 
-  - name: Configure Nginx to serve the sample HTML page
-    template:
-      src: templates/nginx.conf.j2
-      dest: /etc/nginx/sites-available/default
-      mode: '0644'
-    notify: restart nginx
+  - name: Allow HTTP traffic through UFW
+    ufw:
+        rule: allow
+        name: 'Nginx HTTP'
 
   handlers:
   - name: restart nginx
