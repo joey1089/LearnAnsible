@@ -11,3 +11,8 @@
     - name: Upgrade all packages
       apt:
         upgrade: dist
+    
+    - name: Cleanup and free space by removing unwanted installed files 
+      apt:
+        autoremove: yes
+        purge: yes
